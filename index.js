@@ -50,7 +50,7 @@ function transferPackageToNextHand(cable, package) {
     }
 }
 
-document.getElementsByTagName("button").array.forEach(button => {
+[...document.getElementsByTagName("button")].forEach(button => {
     button.addEventListener("click", sendPackage)
 });
 
@@ -71,7 +71,6 @@ function addPackToOriginCable(package) {
 }
 function getPackFromInput(originIP) {
     let message = document.getElementById("n" + originIP + "-message-input").value;
-    let originIP = originIP;
     let destinationIP = document.getElementById("n" + originIP + "-message-dest").value;
     return new Package(message, originIP, destinationIP);
 }
