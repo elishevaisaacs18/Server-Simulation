@@ -1,5 +1,4 @@
-const SERVER_CABLES = [];
-const USERS = [];
+const SERVER_CABLES = []; const USERS = [];
 class User {
     constructor(IP) {
         this.IP = SERVER_CABLES.length;
@@ -32,12 +31,12 @@ class Package {
     }
 }
 
-window.onload = () =>{
+window.onload = () => {
     addUsers(3);
 }
 
-function addUsers(num){
-    for(let i = 0; i<=num; i++) {
+function addUsers(num) {
+    for (let i = 0; i <= num; i++) {
         USERS.push(new User(i));
     }
 }
@@ -56,12 +55,9 @@ document.getElementsByTagName("button").array.forEach(button => {
 });
 
 
-// anyway - addPackToCable;
-//if is not delivering now - sendPackToDest()
-
 
 function sendPackage(event) {
-    const ORIGIN_IP = event.target.id;
+    const ORIGIN_IP = event.target.id.slice(1);
     const ORIGIN_CABLE = SERVER_CABLES[ORIGIN_IP]
     addPackToOriginCable(getPackFromInput(ORIGIN_IP));
     if (!ORIGIN_CABLE.isInDelivery) {
@@ -74,13 +70,8 @@ function addPackToOriginCable(package) {
     SERVER_CABLES[originIP].messages.push(package);
 }
 function getPackFromInput(originIP) {
-    let message = document.getElementById(originIP + "-message-input").value;
+    let message = document.getElementById("n" + originIP + "-message-input").value;
     let originIP = originIP;
-    let destinationIP = document.getElementById(originIP + "-message-dest").value;
+    let destinationIP = document.getElementById("n" + originIP + "-message-dest").value;
     return new Package(message, originIP, destinationIP);
 }
-
-
-// function getMessages() {
-//     return 
-// }
