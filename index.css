@@ -4,12 +4,12 @@ body {
     position: relative;
     display: grid;
     width:100%;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1fr 5fr 2fr 1fr;
     grid-template-areas:
-        '. title .'
-        '. n0-computer .'
-        '. n1-computer .'
-        '. n2-computer .';
+        '. title title.'
+        '. n0-computer server .'
+        '. n1-computer server .'
+        '. n2-computer server .';
 }
 
 h1 {
@@ -17,6 +17,14 @@ h1 {
     grid-area: title;
     height: 5vh;
     width:auto
+}
+
+#server{
+    grid-area: server;
+    background-color: greenyellow;
+    border-radius: 1em;
+    width:20vw;
+    height: auto;
 }
 
 #n0-computer {

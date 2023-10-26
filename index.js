@@ -7,8 +7,8 @@ class User {
     }
 }
 class Cable {
-    constructor(packages, IPOrigin) {
-        this.IPOrigin = IPOrigin;
+    constructor(packages, originIP) {
+        this.originIP = originIP;
         this.isInDelivery = false;
         this.packages = [];
     }
@@ -17,9 +17,9 @@ class Cable {
         this.isInDelivery = true;
         while (this.packages.length !== 0) {
             let pack = this.packages.shift();
-            setTimeout(transferPackageToNextHand(this, pack), Math.floor(Math.random() * pack.message.length / 5))
+            setTimeout(() => transferPackage(this, pack), 1000)
         }
-        this.isInDelivery = false
+        this.isInDelivery = false;
     }
 
 }
@@ -31,9 +31,7 @@ class Package {
     }
 }
 
-window.onload = () => {
-    addUsers(3);
-}
+addUsers(3);
 
 function addUsers(num) {
     for (let i = 0; i <= num; i++) {
@@ -41,37 +39,45 @@ function addUsers(num) {
     }
 }
 
-function transferPackageToNextHand(cable, package) {
-    if (package.ORIGIN_IP === cable.IPOrigin) {
-        SERVER_CABLES[package.destinationIP].packages.push(package);
-    }
-    else {
-        USERS[package.destinationIP].messages.push(package.message);
-    }
+function transferPackage(cable, package) {
+    SERVER_CABLES[parseInt(package.destinationIP)].packages.push(package);
+    setTimeout(() => transferMessageToDest(package), 1000)
 }
 
-document.getElementsByTagName("button").array.forEach(button => {
-    button.addEventListener("click", sendPackage)
-});
+function transferMessageToDest(package) {
+    USERS[parseInt(package.destinationIP)].messages.push(package.message);
+}
+
+// [...document.getElementsByTagName("button")].forEach(button => {
+//     button.addEventListener("click", sendPackage)
+// });
+
+document.getElementById("n0").addEventListener("click", sendPackage);
+
 
 
 
 function sendPackage(event) {
-    const ORIGIN_IP = event.target.id.slice(1);
-    const ORIGIN_CABLE = SERVER_CABLES[ORIGIN_IP]
+    const ORIGIN_IP = parseInt(event.target.id.slice(1));
+    console.log('ORIGIN_IP: ', ORIGIN_IP + 1);
+    const ORIGIN_CABLE = SERVER_CABLES[ORIGIN_IP];
     addPackToOriginCable(getPackFromInput(ORIGIN_IP));
+
     if (!ORIGIN_CABLE.isInDelivery) {
         ORIGIN_CABLE.deliverPackagesManagement();
+        console.log("users", USERS);
+        console.log("server cabels", SERVER_CABLES);
     }
 
 }
 
 function addPackToOriginCable(package) {
-    SERVER_CABLES[originIP].messages.push(package);
+    SERVER_CABLES[package.originIP].packages.push(package);
+    console.log('package.originIP: ', package.originIP + 1);
 }
+
 function getPackFromInput(originIP) {
     let message = document.getElementById("n" + originIP + "-message-input").value;
-    let originIP = originIP;
     let destinationIP = document.getElementById("n" + originIP + "-message-dest").value;
     return new Package(message, originIP, destinationIP);
 }
