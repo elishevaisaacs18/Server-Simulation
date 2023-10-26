@@ -39,13 +39,15 @@ function addUsers(num) {
     }
 }
 
-function transferPackage(cable, package) {
+function transferPackage(package) {
+    document.getElementById("n" + package.originIP + "-bird").classList.add("bird-to-server");
     SERVER_CABLES[parseInt(package.destinationIP)].packages.push(package);
     setTimeout(() => transferMessageToDest(package), 1000)
     console.log("USERE", USERS);
 }
 
 function transferMessageToDest(package) {
+    document.getElementById("n" + package.destinationIP + "-bird").classList.add("bird-to-comp");
     USERS[parseInt(package.destinationIP)].messages.push(package.message);
     showMessage(package.destinationIP);
 }
