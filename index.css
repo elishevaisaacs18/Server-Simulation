@@ -52,7 +52,7 @@ input[type=number] {
     box-sizing: border-box;
 }
 
-form {
+.form {
     display: flex;
     justify-self: stretch;
     align-items: center;
