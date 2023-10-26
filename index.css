@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: grid;
+    width:100%;
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-areas:
+        '. title .'
+        '. n0-computer .'
+        '. n1-computer .'
+        '. n2-computer .';
+}
+
+h1 {
+    text-align: center;
+    grid-area: title;
+    height: 5vh;
+    width:auto
+}
+
+#n0-computer {
+    display: flex;
+    grid-area: n0-computer;
+}
+
+#n1-computer {
+    display: flex;
+    grid-area: n1-computer;
+}
+
+#n2-computer {
+    display: flex;
+    grid-area: n2-computer;
+}
+
+input[type=text],
+input[type=number] {
+    width: 100%;
+    padding: 5px 10px;
+    margin: 3px 0;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+form {
+    display: flex;
+    justify-self: stretch;
+    align-items: center;
+    flex-direction: column;
+}
+
+img {
+    width: 10vw;
+    height: auto;
+}
