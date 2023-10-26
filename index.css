@@ -24,9 +24,9 @@ h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    margin-right: 1em;
 }
 #cables div{
-    width: 150%;
     border-bottom: 0.5em solid #000000;
 }
 #server{
@@ -37,6 +37,29 @@ h1 {
     height: auto;
 }
 
+.bird-to-server {
+    display: block;
+    background-image: url("./icons8-package-100.png");
+    width: 10em;
+    height: 6em;
+    animation: toServer 1s 1;
+    position: relative;
+}
+.bird-to-comp {
+    background-image: url("./icons8-package-100.png");
+    width: 10em;
+    height: 6em;
+    animation: toComp 1s 1;
+    position: relative;
+}
+@keyframes toServer {
+  from {left: 0px;}
+  to {left: 24em; display: none;}
+}
+@keyframes toComp {
+    from {left: 24em;display: block;}
+    to {left: 0px;}
+  }
 #n0-computer {
     display: flex;
     grid-area: n0-computer;
