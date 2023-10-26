@@ -17,8 +17,7 @@ class Cable {
         this.isInDelivery = true;
         while (this.packages.length !== 0) {
             let pack = this.packages.shift();
-            // setTimeout(() => transferPackage(this, pack), 1000)
-            transferPackage(this, pack)
+            setTimeout(() => transferPackage(this, pack), 1000);
         }
         this.isInDelivery = false;
     }
@@ -40,23 +39,27 @@ function addUsers(num) {
     }
 }
 
-function transferPackage(cable, package) {
+function transferPackage(package) {
+    document.getElementById("n" + package.originIP + "-bird").classList.add("bird-to-server");
     SERVER_CABLES[parseInt(package.destinationIP)].packages.push(package);
-    // setTimeout(() => transferMessageToDest(package), 1000)
-    transferMessageToDest(package)
+    setTimeout(() => transferMessageToDest(package), 1000)
     console.log("USERE", USERS);
 }
 
 function transferMessageToDest(package) {
+    document.getElementById("n" + package.destinationIP + "-bird").classList.add("bird-to-comp");
     USERS[parseInt(package.destinationIP)].messages.push(package.message);
+    showMessage(package.destinationIP);
 }
 
-// [...document.getElementsByTagName("button")].forEach(button => {
-//     button.addEventListener("click", sendPackage)
-// });
+function showMessage(IP) {
+    document.getElementById("n" + IP + "-caption").textContent = 
+    USERS[IP].messages[USERS[IP].messages.length - 1] + " ";  
+}
 
-document.getElementById("n0").addEventListener("click", sendPackage);
-
+document.getElementsByTagName("button")[0].addEventListener("click", sendPackage);
+document.getElementsByTagName("button")[1].addEventListener("click", sendPackage);
+document.getElementsByTagName("button")[2].addEventListener("click", sendPackage);
 
 
 
@@ -80,7 +83,10 @@ function addPackToOriginCable(package) {
 }
 
 function getPackFromInput(originIP) {
-    let message = document.getElementById("n" + originIP + "-message-input").value;
-    let destinationIP = document.getElementById("n" + originIP + "-message-dest").value;
-    return new Package(message, originIP, destinationIP);
+    let message = document.getElementById("n" + originIP + "-message-input");
+    let destinationIP = document.getElementById("n" + originIP + "-message-dest");
+    let package = new Package(message.value, originIP, destinationIP.value);
+    message.value = '';
+    destinationIP.value = '';
+    return package;
 }
