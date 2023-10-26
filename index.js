@@ -17,7 +17,7 @@ class Cable {
         this.isInDelivery = true;
         while (this.packages.length !== 0) {
             let pack = this.packages.shift();
-            setTimeout(() => transferPackage(this, pack), 1000);
+            setTimeout(() => transferPackage(pack), 1000);
         }
         this.isInDelivery = false;
     }
@@ -44,9 +44,11 @@ function transferPackage(package) {
     SERVER_CABLES[parseInt(package.destinationIP)].packages.push(package);
     setTimeout(() => transferMessageToDest(package), 1000)
     console.log("USERE", USERS);
+    document.getElementById("n" + package.originIP + "-bird").classList.remove("bird-to-comp");
 }
 
 function transferMessageToDest(package) {
+    document.getElementById("n" + package.originIP + "-bird").classList.remove("bird-to-server");
     document.getElementById("n" + package.destinationIP + "-bird").classList.add("bird-to-comp");
     USERS[parseInt(package.destinationIP)].messages.push(package.message);
     showMessage(package.destinationIP);
