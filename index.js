@@ -17,7 +17,8 @@ class Cable {
         this.isInDelivery = true;
         while (this.packages.length !== 0) {
             let pack = this.packages.shift();
-            setTimeout(() => transferPackage(this, pack), 1000)
+            // setTimeout(() => transferPackage(this, pack), 1000)
+            transferPackage(this, pack)
         }
         this.isInDelivery = false;
     }
@@ -41,7 +42,9 @@ function addUsers(num) {
 
 function transferPackage(cable, package) {
     SERVER_CABLES[parseInt(package.destinationIP)].packages.push(package);
-    setTimeout(() => transferMessageToDest(package), 1000)
+    // setTimeout(() => transferMessageToDest(package), 1000)
+    transferMessageToDest(package)
+    console.log("USERE", USERS);
 }
 
 function transferMessageToDest(package) {
